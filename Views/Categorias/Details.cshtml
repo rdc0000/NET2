@@ -1,13 +1,13 @@
 ﻿@model NET2.Models.Categoria
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
-    <h4>Categoria</h4>
+    <h4> Editar Categoria</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -32,5 +32,5 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.CategoriaID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary"><i class="fas fa-backward"></i>Atras</a>
 </div>
