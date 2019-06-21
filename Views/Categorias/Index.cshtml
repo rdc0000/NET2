@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NET2.Models.Categoria>
+﻿@model Paginacion<WebApp.Models.Categoria>
 
 @{
     ViewData["Title"] = "Categoria cursos";
@@ -13,8 +13,8 @@
     <div class="form-actions    no-color">
         <p>
             Filtro: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
-                    <input type="submit" value="Buscar" class="btn btn-success fas fa-search"/>
-                    <a asp-action="Index" >Todos los registros</a>
+            <input type="submit" value="Buscar" class="btn btn-success fas fa-search" />
+            <a asp-action="Index">Todos los registros</a> | Registros mostrados @model.TotalR
         </p>
     </div>
 </form>
@@ -22,10 +22,10 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NombreSortParm"]">Nombre</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NombreSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nombre</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DescripcionSortParm"]">Descripción</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DescripcionSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Descripción</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Estado)
@@ -34,23 +34,53 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoriaID" class="btn btn-success"><i class="fas fa-edit"></i></a> |
-                <a asp-action="Details" asp-route-id="@item.CategoriaID"class="btn btn-warning"><i class="fas fa-th-list"></i></a> |
-                <a asp-action="Delete" asp-route-id="@item.CategoriaID"class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CategoriaID" class="btn btn-success"><i class="fas fa-edit"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.CategoriaID" class="btn btn-warning"><i class="fas fa-th-list"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.CategoriaID" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextsPage ? "disabled" : "";
+}
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@Model.PageIndex - 1"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Anterior
+</a>
+@for (int i = 1; i <= Model.TotalPages; i++)
+{
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-page="@i"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default">
+        @i
+    </a>
+}
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@Model.PageIndex + 1"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Siguiente
+</a>
