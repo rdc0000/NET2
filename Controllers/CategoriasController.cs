@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NET2.Models;
-using WebApp;
+using NET2;
 
 namespace NET2.Controllers
 {

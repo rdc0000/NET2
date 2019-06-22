@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-namespace Net2
+namespace NET2
 {
     public class Paginacion<T> : List<T>
     {

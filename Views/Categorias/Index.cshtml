@@ -14,7 +14,7 @@
         <p>
             Filtro: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
             <input type="submit" value="Buscar" class="btn btn-success fas fa-search" />
-            <a asp-action="Index">Todos los registros</a> | Registros mostrados @model.TotalR
+            <a asp-action="Index">Todos los registros</a> | Registros mostrados @Model.TotalR
         </p>
     </div>
 </form>
@@ -28,7 +28,7 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DescripcionSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Descripción</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                Estado
             </th>
             <th></th>
         </tr>
@@ -58,7 +58,7 @@
 
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextsPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
